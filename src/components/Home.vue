@@ -33,13 +33,10 @@
 
 <script>
     export default {
-        data() {
-            return {
-                meetups: [
-                    { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg', id: 'ewtevfdgef', title: 'Meetup in New York' },
-                    { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Paris_vue_d%27ensemble_tour_Eiffel.jpg', id: 'ewtfgbeeergfvfdgef', title: 'Meetup in Paris' },
-                ],
-            };
+        computed: {
+            meetups() {
+                return this.$store.getters.featuredMeetups;
+            }
         },
         methods: {
             onLoadMeetup(id) {
