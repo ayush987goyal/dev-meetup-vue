@@ -3,8 +3,10 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.css';
 import colors from 'vuetify/es5/util/colors';
+import * as firebase from 'firebase';
 
 import App from './App';
+import AlertCmp from './components/Shared/Alert';
 import router from './router';
 import { store } from './store';
 import DateFilter from './filters/date';
@@ -24,6 +26,7 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false;
 
 Vue.filter('date', DateFilter);
+Vue.component('app-alert', AlertCmp);
 
 /* eslint-disable no-new */
 new Vue({
@@ -31,4 +34,14 @@ new Vue({
   store,
   router,
   render: h => h(App),
+  created() {
+    firebase.initializeApp({
+        apiKey: 'AIzaSyA9s0X1um2Lqdn_32bQ-84egZb8hCBLXWo',
+        authDomain: 'vuejs-http-dcd62.firebaseapp.com',
+        databaseURL: 'https://vuejs-http-dcd62.firebaseio.com',
+        projectId: 'vuejs-http-dcd62',
+        storageBucket: 'vuejs-http-dcd62.appspot.com',
+        messagingSenderId: '753953592343',
+    });
+  },
 });

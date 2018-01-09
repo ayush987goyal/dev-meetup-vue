@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as firebase from 'firebase';
 
 Vue.use(Vuex);
 
@@ -22,14 +23,25 @@ export const store = new Vuex.Store({
                 description: 'It is Paris',
             },
         ],
-        user: {
-            id: 'sdfgwergwfgd',
-            registeredMeetups: ['ewtfgbeeergfvfdgef'],
-        },
+        user: null,
+        loading: false,
+        error: null,
     },
     mutations: {
         createMeetup(state, payload) {
             state.loadedMeetups.push(payload);
+        },
+        setUser(state, payload) {
+            state.user = payload;
+        },
+        setLoading(state, payload) {
+            state.loading = payload;
+        },
+        setError(state, payload) {
+            state.error = payload;
+        },
+        clearError(state) {
+            state.error = null;
         },
     },
     actions: {
@@ -44,6 +56,51 @@ export const store = new Vuex.Store({
             };
             // Reach out to firebase and store it
             commit('createMeetup', meetup);
+        },
+        signUserUp({ commit }, payload) {
+            commit('setLoading', true);
+            commit('clearError');
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    (user) => {
+                        commit('setLoading', false);
+                        const newUser = {
+                            id: user.uid,
+                            registeredMeetups: [],
+                        };
+                        commit('setUser', newUser);
+                    },
+                )
+                .catch(
+                    (error) => {
+                        commit('setLoading', false);
+                        commit('setError', error.message);
+                    },
+                );
+        },
+        signUserIn({ commit }, payload) {
+            commit('setLoading', true);
+            commit('clearError');
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+            .then(
+                (user) => {
+                    commit('setLoading', false);
+                    const newUser = {
+                        id: user.uid,
+                        registeredMeetups: [],
+                    };
+                    commit('setUser', newUser);
+                },
+            )
+            .catch(
+                (error) => {
+                    commit('setLoading', false);
+                    commit('setError', error.message);
+                },
+            );
+        },
+        clearError({ commit }) {
+            commit('clearError');
         },
     },
     getters: {

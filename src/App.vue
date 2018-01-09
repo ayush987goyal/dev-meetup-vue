@@ -37,18 +37,68 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-        sideNav: false,
-        menuItems: [
-            { icon: 'supervisor_account', title: 'View Meetups', link: '/meetups' },
-            { icon: 'room', title: 'Organize Meetup', link: '/meetup/new' },
-            { icon: 'person', title: 'Profile', link: '/profile' },
-            { icon: 'face', title: 'Sign up', link: '/signup' },
-            { icon: 'lock_open', title: 'Sign in', link: '/signin' },
-        ],
-	};
-  },
-};
+    import { mapState } from 'vuex';
+
+    export default {
+        data() {
+            return {
+                sideNav: false,
+            };
+        },
+        computed: {
+            ...mapState(['user']),
+            menuItems() {
+                let menuItems = [
+                    { icon: 'face', title: 'Sign up', link: '/signup' },
+                    { icon: 'lock_open', title: 'Sign in', link: '/signin' },
+                ];
+                if (this.user !== null && this.user !== undefined) {
+                    menuItems = [
+                        { icon: 'supervisor_account', title: 'View Meetups', link: '/meetups' },
+                        { icon: 'room', title: 'Organize Meetup', link: '/meetup/new' },
+                        { icon: 'person', title: 'Profile', link: '/profile' },
+                    ];
+                }
+                return menuItems;
+            }
+        },
+    };
 </script>
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
