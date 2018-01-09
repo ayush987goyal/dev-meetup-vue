@@ -75,7 +75,6 @@
                                 class="primary"
                                 type="submit"
                                 :disabled="!formIsvalid">Create Meetup</v-btn>
-                            {{ submittableDateTime }}
                         </v-flex>
                     </v-layout>
                 </form>
