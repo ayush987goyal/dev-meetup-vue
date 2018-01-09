@@ -8,7 +8,17 @@
                 <v-btn large to="/meetup/new" class="info">Organize Meetup</v-btn>
             </v-flex>
         </v-layout>
-        <v-layout row wrap>
+        <v-layout row>
+            <v-flex xs12 class="text-xs-center">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    :width="7"
+                    :size="70"
+                    v-if="loading"></v-progress-circular>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap v-if="!loading">
             <v-flex xs12>
                 <v-carousel style="cursor: pointer">
                     <v-carousel-item
@@ -32,8 +42,11 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
         computed: {
+            ...mapState(['loading']),
             meetups() {
                 return this.$store.getters.featuredMeetups;
             }
