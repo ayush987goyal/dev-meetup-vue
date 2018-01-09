@@ -40,7 +40,7 @@ new Vue({
         authDomain: 'vuejs-http-dcd62.firebaseapp.com',
         databaseURL: 'https://vuejs-http-dcd62.firebaseio.com',
         projectId: 'vuejs-http-dcd62',
-        storageBucket: 'vuejs-http-dcd62.appspot.com',
+        storageBucket: 'gs://vuejs-http-dcd62.appspot.com',
         messagingSenderId: '753953592343',
     });
     firebase.auth().onAuthStateChanged((user) => {
