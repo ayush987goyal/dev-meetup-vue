@@ -1,10 +1,24 @@
 <template>
     <v-container class="mt-0">
-        <v-layout row wrap>
+        <v-layout row wrap v-if="loading">
+            <v-flex xs12 class="text-xs-center">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    :width="7"
+                    :size="70"
+                    v-if="loading"></v-progress-circular>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap v-else>
             <v-flex xs12>
                 <v-card>
                     <v-card-title>
-                        <h4 class="primary--text">{{ meetup.title }}</h4>
+                        <h2 class="primary--text">{{ meetup.title }}</h2>
+                        <template v-if="userIsCreator">
+                            <v-spacer></v-spacer>
+                            <app-edit-meetup-details-dialog :meetup="meetup"></app-edit-meetup-details-dialog>
+                        </template>
                     </v-card-title>
                     <v-card-media
                         :src="meetup.imageUrl"
@@ -25,11 +39,23 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
         props: ['id'],
         computed: {
+            ...mapState(['user', 'loading']),
             meetup() {
                 return this.$store.getters.loadedMeetup(this.id);
+            },
+            userIsAuthenticated() {
+                return this.user !== null && this.user !== undefined;
+            },
+            userIsCreator() {
+                if (!this.userIsAuthenticated) {
+                    return false;
+                }
+                return this.user.id === this.meetup.creatorId;
             }
         }
     }

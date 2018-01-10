@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 
 import App from './App';
 import AlertCmp from './components/Shared/Alert';
+import EditMeetupDetailsDialogCmp from './components/Meetup/Edit/EditMeetupDetailsDialog';
 import router from './router';
 import { store } from './store';
 import DateFilter from './filters/date';
@@ -27,6 +28,7 @@ Vue.config.productionTip = false;
 
 Vue.filter('date', DateFilter);
 Vue.component('app-alert', AlertCmp);
+Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialogCmp);
 
 /* eslint-disable no-new */
 new Vue({
