@@ -8,6 +8,8 @@ import * as firebase from 'firebase';
 import App from './App';
 import AlertCmp from './components/Shared/Alert';
 import EditMeetupDetailsDialogCmp from './components/Meetup/Edit/EditMeetupDetailsDialog';
+import EditMeetupDateDialog from './components/Meetup/Edit/EditMeetupDateDialog';
+import EditMeetupTimeDialog from './components/Meetup/Edit/EditMeetupTimeDialog';
 import router from './router';
 import { store } from './store';
 import DateFilter from './filters/date';
@@ -29,6 +31,8 @@ Vue.config.productionTip = false;
 Vue.filter('date', DateFilter);
 Vue.component('app-alert', AlertCmp);
 Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialogCmp);
+Vue.component('app-edit-meetup-date-dialog', EditMeetupDateDialog);
+Vue.component('app-edit-meetup-time-dialog', EditMeetupTimeDialog);
 
 /* eslint-disable no-new */
 new Vue({
