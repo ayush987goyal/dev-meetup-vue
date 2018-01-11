@@ -41,7 +41,9 @@
             }
         },
         computed: {
-            ...mapState(['user']),
+            ...mapState({
+                user: state => state.user.user
+            }),
             userIsRegistered() {
                 return this.user.registeredMeetups.findIndex(meetupId => {
                     return meetupId === this.meetupId;

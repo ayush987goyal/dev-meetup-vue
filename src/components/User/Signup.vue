@@ -80,11 +80,11 @@
             }
         },
         computed: {
-            ...mapState([
-                'user',
-                'error',
-                'loading'
-            ]),
+            ...mapState({
+                user: state => state.user.user,
+                error: state => state.shared.error,
+                loading: state => state.shared.loading
+            }),
             comparePasswords () {
                 return this.password !== this.confirmPassword ? 'Password do not match' : '';
             },

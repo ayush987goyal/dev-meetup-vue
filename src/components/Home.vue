@@ -46,7 +46,9 @@
 
     export default {
         computed: {
-            ...mapState(['loading']),
+            ...mapState({
+                loading: state => state.shared.loading
+            }),
             meetups() {
                 return this.$store.getters.featuredMeetups;
             }

@@ -50,7 +50,10 @@
     export default {
         props: ['id'],
         computed: {
-            ...mapState(['user', 'loading']),
+            ...mapState({
+                user: state => state.user.user,
+                loading: state => state.shared.loading
+            }),
             meetup() {
                 return this.$store.getters.loadedMeetup(this.id);
             },

@@ -68,11 +68,11 @@
             }
         },
         computed: {
-            ...mapState([
-                'user',
-                'error',
-                'loading'
-            ]),
+            ...mapState({
+                user: state => state.user.user,
+                error: state => state.shared.error,
+                loading: state => state.shared.loading
+            }),
         },
         watch: {
             user(value) {

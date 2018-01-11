@@ -61,7 +61,9 @@
             };
         },
         computed: {
-            ...mapState(['user']),
+            ...mapState({
+                user: state => state.user.user
+            }),
             menuItems() {
                 let menuItems = [
                     { icon: 'face', title: 'Sign up', link: '/signup' },
